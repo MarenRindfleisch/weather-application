@@ -1,14 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"
+      src="https://kit.fontawesome.com/e683039b60.js"
+      crossorigin="anonymous"
+    ></script>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="style.css" />
-    <title>Weather App</title>
+    <title>HTML/CSS to JS</title>
   </head>
   <body>
-    <h1>Weather</h1>
+    <div class="container weather-app">
+      <form id="search-form">
+        <input
+          type="text"
+          class="search-field"
+          placeholder="Enter your city"
+          id="search-input"
+        />
+
+        <button type="search" class="search-button col-4">
+          Search <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
+      <button id="current-location-button">
+        Current Location <i class="fa-solid fa-location-dot"></i>
+      </button>
+      <br />
+      <div class="row">
+        <div class="col-3 current-weather">☀️</div>
+        <div class="col-9"><h1 id="city">New York</h1></div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <span id="current-temperature"> 17 </span>
+          <a href="#" id="celsius"> ºC</a>
+          <a href="#" id="fahrenheit">|ºF</a>
+        </div>
+        <div class="col-9">
+          <ul class="weather-elements">
+            <li id="day-time-display">Thursday, 22:00</li>
+            <li>clear</li>
+            <li>Precipitation: 60%</li>
+            <li>Wind: 4km/h</li>
+          </ul>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="row">
+        <div class="col-2 week-forecast">
+          Fri <br />
+          🌥 <br />
+          <div class="celsius">12ºC</div>
+        </div>
+        <div class="col-2 week-forecast">
+          Sat<br />
+          🌦<br />
+          <div class="celsius">10ºC</div>
+        </div>
+        <div class="col-2 week-forecast">
+          Sun<br />
+          ☀️<br />
+          <div class="celsius">14ºC</div>
+        </div>
+        <div class="col-2 week-forecast">
+          Mon<br />
+          ☀️<br />
+          <div class="celsius">16ºC</div>
+        </div>
+        <div class="col-2 week-forecast">
+          Tue<br />
+          🌥
+          <div class="celsius">10ºC</div>
+        </div>
+      </div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
