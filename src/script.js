@@ -36,12 +36,19 @@ function searchCity(event) {
 
   // Feature change temperature according to search city result
   function showTemperature(response) {
+    console.log(response.data);
     let city = response.data.name;
     let temperatureHeading = document.querySelector("#city");
     temperatureHeading.innerHTML = city;
     let temp = Math.round(response.data.main.temp);
     let temperatureDisplay = document.querySelector("#current-temperature");
     temperatureDisplay.innerHTML = temp;
+    let descriptionElement = document.querySelector("#description");
+    descriptionElement.innerHTML = response.data.weather[0].description;
+    let humidityElement = document.querySelector("#humidity");
+    humidityElement.innerHTML = response.data.main.humidity;
+    let windElement = document.querySelector("#wind");
+    windElement.innerHTML = Math.round(response.data.wind.speed);
   }
 
   let apiKey = "19a7287a43046ce253c65a1908dfe8b1";
