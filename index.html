@@ -15,77 +15,80 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="src/style.css" />
     <title>HTML/CSS to JS</title>
   </head>
   <body>
-    <div class="container weather-app">
-      <form id="search-form">
-        <input
-          type="text"
-          class="search-field"
-          placeholder="Enter your city"
-          id="search-input"
-        />
+    <div class="container">
+      <div class="weather-app">
+        <form id="search-form">
+          <input
+            type="text"
+            class="search-field"
+            placeholder="Enter your city"
+            id="search-input"
+          />
 
-        <button type="search" class="search-button col-4">
-          Search <i class="fa-solid fa-magnifying-glass"></i>
+          <button type="search" class="search-button col-4">
+            Search <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+        <button id="current-location-button">
+          Current Location <i class="fa-solid fa-location-dot"></i>
         </button>
-      </form>
-      <button id="current-location-button">
-        Current Location <i class="fa-solid fa-location-dot"></i>
-      </button>
-      <br />
-      <div class="row">
-        <div class="col-3 current-weather">☀️</div>
-        <div class="col-9"><h1 id="city">New York</h1></div>
-      </div>
-      <div class="row">
-        <div class="col-3">
-          <span id="current-temperature"> 17 </span>
-          <a href="#" id="celsius"> ºC</a>
-          <a href="#" id="fahrenheit">|ºF</a>
+        <br />
+        <div class="row">
+          <div class="col-3 current-weather">☀️</div>
+          <div class="col-9"><h1 id="city">New York</h1></div>
         </div>
-        <div class="col-9">
-          <ul class="weather-elements">
-            <li id="day-time-display">Thursday, 22:00</li>
-            <li>clear</li>
-            <li>Precipitation: 60%</li>
-            <li>Wind: 4km/h</li>
-          </ul>
+        <div class="row">
+          <div class="col-3">
+            <span id="current-temperature"> 17 </span>
+            <a href="#" id="celsius"> ºC</a>
+            <a href="#" id="fahrenheit">|ºF</a>
+          </div>
+          <div class="col-9">
+            <ul class="weather-elements">
+              <li id="day-time-display">Thursday, 22:00</li>
+              <li>clear</li>
+              <li>Precipitation: 60%</li>
+              <li>Humidity: 50%</li>
+              <li>Wind: 4km/h</li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <br />
-      <br />
-      <div class="row">
-        <div class="col-2 week-forecast">
-          Fri <br />
-          🌥 <br />
-          <div class="celsius">12ºC</div>
-        </div>
-        <div class="col-2 week-forecast">
-          Sat<br />
-          🌦<br />
-          <div class="celsius">10ºC</div>
-        </div>
-        <div class="col-2 week-forecast">
-          Sun<br />
-          ☀️<br />
-          <div class="celsius">14ºC</div>
-        </div>
-        <div class="col-2 week-forecast">
-          Mon<br />
-          ☀️<br />
-          <div class="celsius">16ºC</div>
-        </div>
-        <div class="col-2 week-forecast">
-          Tue<br />
-          🌥
-          <div class="celsius">10ºC</div>
+        <br />
+        <br />
+        <div class="row">
+          <div class="col-2 week-forecast">
+            Fri <br />
+            🌥 <br />
+            <div class="celsius">12ºC</div>
+          </div>
+          <div class="col-2 week-forecast">
+            Sat<br />
+            🌦<br />
+            <div class="celsius">10ºC</div>
+          </div>
+          <div class="col-2 week-forecast">
+            Sun<br />
+            ☀️<br />
+            <div class="celsius">14ºC</div>
+          </div>
+          <div class="col-2 week-forecast">
+            Mon<br />
+            ☀️<br />
+            <div class="celsius">16ºC</div>
+          </div>
+          <div class="col-2 week-forecast">
+            Tue<br />
+            🌥
+            <div class="celsius">10ºC</div>
+          </div>
         </div>
       </div>
     </div>
-    <script src="script.js"></script>
+    <script src="src/script.js"></script>
     <footer>
       <a href="https://github.com/MarenRindfleisch/weather-application.git">
         view on GitHub</a
