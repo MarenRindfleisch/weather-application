@@ -36,7 +36,6 @@ function searchCity(event) {
 
   // Feature change temperature according to search city result
   function showTemperature(response) {
-    console.log(response.data);
     let city = response.data.name;
     let temperatureHeading = document.querySelector("#city");
     temperatureHeading.innerHTML = city;
@@ -49,6 +48,13 @@ function searchCity(event) {
     humidityElement.innerHTML = response.data.main.humidity;
     let windElement = document.querySelector("#wind");
     windElement.innerHTML = Math.round(response.data.wind.speed);
+
+    let iconElement = document.querySelector("#icon");
+    iconElement.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    );
+    iconElement.setAttribute("alt", response.data.weather[0].description);
   }
 
   let apiKey = "19a7287a43046ce253c65a1908dfe8b1";
