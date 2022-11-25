@@ -25,7 +25,14 @@ let currentDate = new Date();
 let dateDisplay = document.querySelector("#day-time-display");
 dateDisplay.innerHTML = formatDate(currentDate);
 
-// Feature search City and replace in display
+function formatForecastDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+// Change data depending on search city result
 function searchCity(event) {
   event.preventDefault();
   let searchInput = document.querySelector("#search-input");
@@ -34,7 +41,54 @@ function searchCity(event) {
   let heading = document.querySelector("#city");
   heading.innerHTML = `${searchedCity}`;
 
-  // Feature change temperature according to search city result
+  function getWeekForecast(coordinates) {
+    console.log(coordinates);
+    let apiKey = "cf6b50b908fa2e0baca3eed8a569a5f6";
+    let apiEndpoint = "https://api.openweathermap.org/data/2.5/onecall?";
+    let apiUrl = `${apiEndpoint}lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+    console.log(apiUrl);
+    axios.get(apiUrl).then(displayWeekForecast);
+  }
+  // Inject forecast HTML via JS
+  function displayWeekForecast(response) {
+    console.log(response.data.daily);
+    let weekForecastElement = document.querySelector("#week-forecast");
+    let weekForecastHTML = `<div class="row">`;
+    let forecast = response.data.daily;
+    forecast.forEach(function (forecastDay, index) {
+      if (index < 6) {
+        weekForecastHTML =
+          weekForecastHTML +
+          `
+        <div class="col-2">
+          <div class="week-forecast-day">${formatForecastDay(
+            forecastDay.dt
+          )}</div>
+            <img
+                src="http://openweathermap.org/img/wn/${
+                  forecastDay.weather[0].icon
+                }@2x.png"
+                width="40"
+                height="40"
+                style="width: 40px; height: 40px"
+                alt=""
+                id="fri-forecast"
+            />
+          <div class="week-forecast-temperature">
+                <span class="min-week-forecast-temperature">${Math.round(
+                  forecastDay.temp.min
+                )}°C</span>
+                <span class="max-week-forecast-temperature"${Math.round(
+                  forecastDay.temp.max
+                )}°C</span>
+          </div>
+      
+      `;
+        weekForecastHTML = weekForecastHTML + `</div>`;
+        weekForecastElement.innerHTML = weekForecastHTML;
+      }
+    });
+  }
   function showTemperature(response) {
     celsiusTemperature = response.data.main.temp;
     let city = response.data.name;
@@ -56,6 +110,7 @@ function searchCity(event) {
       `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
     );
     iconElement.setAttribute("alt", response.data.weather[0].description);
+    getWeekForecast(response.data.coord);
   }
 
   let apiKey = "19a7287a43046ce253c65a1908dfe8b1";
@@ -67,9 +122,34 @@ function searchCity(event) {
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", searchCity);
 
-// Feature activate current location button
+// Feature convert temperature
 
-function showTemperature(response) {
+let fahrenheitLink = document.querySelector("#fahrenheit");
+fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
+
+let celsiusLink = document.querySelector("#celsius");
+celsiusLink.addEventListener("click", displayCelsiusTemperature);
+let celsiusTemperature = null;
+
+function displayCelsiusTemperature(event) {
+  event.preventDefault;
+  let temperatureElement = document.querySelector("#current-temperature");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+}
+function displayFahrenheitTemperature(event) {
+  event.preventDefault;
+  let temperatureElement = document.querySelector("#current-temperature");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+}
+
+// Show weather data according to current location result from button
+
+function showTemperatureCurrentLocation(response) {
   let city = response.data.name;
   let temperatureHeading = document.querySelector("#current-temperature");
   let temp = Math.round(response.data.main.temp);
@@ -98,7 +178,7 @@ function showPosition(position) {
   let units = "metric";
   let apiUrl = `${apiEndpoint}?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
 
-  axios.get(apiUrl).then(showTemperature);
+  axios.get(apiUrl).then(showTemperatureCurrentLocation);
 }
 
 function getCurrentPosition() {
@@ -107,60 +187,3 @@ function getCurrentPosition() {
 
 let locationButton = document.querySelector("#current-location-button");
 locationButton.addEventListener("click", getCurrentPosition);
-
-// Feature convert temperature
-
-let fahrenheitLink = document.querySelector("#fahrenheit");
-fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
-
-let celsiusLink = document.querySelector("#celsius");
-celsiusLink.addEventListener("click", displayCelsiusTemperature);
-let celsiusTemperature = null;
-
-function displayCelsiusTemperature(event) {
-  event.preventDefault;
-  let temperatureElement = document.querySelector("#current-temperature");
-  temperatureElement.innerHTML = Math.round(celsiusTemperature);
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-}
-function displayFahrenheitTemperature(event) {
-  event.preventDefault;
-  let temperatureElement = document.querySelector("#current-temperature");
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-}
-// Inject forecast HTML via JS
-
-function displayWeekForecast() {
-  let weekForecastElement = document.querySelector("#week-forecast");
-  let weekForecastHTML = `<div class="row">`;
-  let days = ["Sat", "Sun", "Mon"];
-  days.forEach(function (day) {
-    weekForecastHTML =
-      weekForecastHTML +
-      `
-        <div class="col-2">
-          <div class="week-forecast-day">${day}</div>
-            <img
-                src=""
-                width="40"
-                height="40"
-                style="width: 40px; height: 40px"
-                alt=""
-                id="fri-forecast"
-            />
-          <div class="week-forecast-temperature">
-                <span class="min-week-forecast-temperature">12°C</span>
-                <span class="max-week-forecast-temperature">20°C</span>
-          </div>
-      
-      `;
-    weekForecastHTML = weekForecastHTML + `</div>`;
-    weekForecastElement.innerHTML = weekForecastHTML;
-  });
-}
-
-displayWeekForecast();
