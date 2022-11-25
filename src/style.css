@@ -5,6 +5,9 @@ a {
   top: -8px;
   font-size: 18px;
 }
+a:hover {
+  color: #000;
+}
 
 body {
   font-family: sans-serif;
@@ -50,6 +53,10 @@ li {
 #current-temperature {
   font-size: 30px;
   margin-left: 0px;
+}
+.active {
+  color: #000;
+  cursor: default;
 }
 
 .weather-app {
