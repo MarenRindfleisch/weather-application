@@ -69,7 +69,20 @@ li {
 
 .week-forecast {
   font-size: 25px;
+  margin-top: 20px;
+  text-align: center;
 }
+.week-forecast-temperature {
+  font-size: 18px;
+}
+
+.max-week-forecast-temperature {
+  color: #000;
+}
+.min-week-forecast-temperature {
+  color: #6c757d;
+}
+
 .search-button {
   width: 120px;
 }

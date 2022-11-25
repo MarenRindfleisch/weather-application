@@ -132,3 +132,35 @@ function displayFahrenheitTemperature(event) {
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
 }
+// Inject forecast HTML via JS
+
+function displayWeekForecast() {
+  let weekForecastElement = document.querySelector("#week-forecast");
+  let weekForecastHTML = `<div class="row">`;
+  let days = ["Sat", "Sun", "Mon"];
+  days.forEach(function (day) {
+    weekForecastHTML =
+      weekForecastHTML +
+      `
+        <div class="col-2">
+          <div class="week-forecast-day">${day}</div>
+            <img
+                src=""
+                width="40"
+                height="40"
+                style="width: 40px; height: 40px"
+                alt=""
+                id="fri-forecast"
+            />
+          <div class="week-forecast-temperature">
+                <span class="min-week-forecast-temperature">12°C</span>
+                <span class="max-week-forecast-temperature">20°C</span>
+          </div>
+      
+      `;
+    weekForecastHTML = weekForecastHTML + `</div>`;
+    weekForecastElement.innerHTML = weekForecastHTML;
+  });
+}
+
+displayWeekForecast();
