@@ -18,6 +18,7 @@ button {
   color: #6c757d;
   background-color: #fff;
   border-width: 1px;
+  width: 60px;
 }
 
 footer {
@@ -27,9 +28,8 @@ footer {
 form {
   display: inline;
   font-size: 25px;
-  box-sizing: content-box;
   border-width: 1px;
-  width: 260px;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -62,7 +62,7 @@ li {
 .weather-app {
   border: 5px solid #6c757d;
   padding: 10px;
-  max-width: 650px;
+  max-width: 600px;
   border-radius: 10px;
   margin-top: 20px;
 }
@@ -81,8 +81,4 @@ li {
 }
 .min-week-forecast-temperature {
   color: #6c757d;
-}
-
-.search-button {
-  width: 120px;
 }
