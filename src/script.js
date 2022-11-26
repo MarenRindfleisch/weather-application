@@ -1,4 +1,9 @@
-// Feature show actual current date
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", searchCity);
+let currentDate = new Date();
+let dateDisplay = document.querySelector("#day-time-display");
+dateDisplay.innerHTML = formatDate(currentDate);
+
 function formatDate(date) {
   let days = [
     "Sunday",
@@ -11,47 +16,39 @@ function formatDate(date) {
   ];
   let currentWeekDay = days[date.getDay()];
   let currentHour = date.getHours();
+  let currentMinute = date.getMinutes();
   if (currentHour < 10) {
     currentHour = `0${currentHour}`;
   }
-  let currentMinute = date.getMinutes();
   if (currentMinute < 10) {
     currentMinute = `0${currentMinute}`;
   }
   return `${currentWeekDay} ${currentHour}:${currentMinute}`;
 }
 
-let currentDate = new Date();
-let dateDisplay = document.querySelector("#day-time-display");
-dateDisplay.innerHTML = formatDate(currentDate);
-
 function formatForecastDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
   let days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
-
   return days[day];
 }
-// Change data depending on search city result
 function searchCity(event) {
   event.preventDefault();
   let searchInput = document.querySelector("#search-input");
   let searchedCity = searchInput.value;
-
   let heading = document.querySelector("#city");
+  let apiKey = "19a7287a43046ce253c65a1908dfe8b1";
+  let city = searchedCity;
+  let units = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   heading.innerHTML = `${searchedCity}`;
-
   function getWeekForecast(coordinates) {
-    console.log(coordinates);
     let apiKey = "cf6b50b908fa2e0baca3eed8a569a5f6";
     let apiEndpoint = "https://api.openweathermap.org/data/2.5/onecall?";
     let apiUrl = `${apiEndpoint}lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
-    console.log(apiUrl);
     axios.get(apiUrl).then(displayWeekForecast);
   }
-  // Inject forecast HTML via JS
   function displayWeekForecast(response) {
-    console.log(response.data.daily);
     let weekForecastElement = document.querySelector("#week-forecast");
     let weekForecastHTML = `<div class="row">`;
     let forecast = response.data.daily;
@@ -93,18 +90,17 @@ function searchCity(event) {
     celsiusTemperature = response.data.main.temp;
     let city = response.data.name;
     let temperatureHeading = document.querySelector("#city");
-    temperatureHeading.innerHTML = city;
     let temp = Math.round(celsiusTemperature);
     let temperatureDisplay = document.querySelector("#current-temperature");
-    temperatureDisplay.innerHTML = temp;
     let descriptionElement = document.querySelector("#description");
-    descriptionElement.innerHTML = response.data.weather[0].description;
     let humidityElement = document.querySelector("#humidity");
-    humidityElement.innerHTML = response.data.main.humidity;
     let windElement = document.querySelector("#wind");
-    windElement.innerHTML = Math.round(response.data.wind.speed);
-
     let iconElement = document.querySelector("#icon");
+    temperatureDisplay.innerHTML = temp;
+    temperatureHeading.innerHTML = city;
+    descriptionElement.innerHTML = response.data.weather[0].description;
+    humidityElement.innerHTML = response.data.main.humidity;
+    windElement.innerHTML = Math.round(response.data.wind.speed);
     iconElement.setAttribute(
       "src",
       `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
@@ -112,12 +108,5 @@ function searchCity(event) {
     iconElement.setAttribute("alt", response.data.weather[0].description);
     getWeekForecast(response.data.coord);
   }
-
-  let apiKey = "19a7287a43046ce253c65a1908dfe8b1";
-  let city = searchedCity;
-  let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(showTemperature);
 }
-let form = document.querySelector("#search-form");
-form.addEventListener("submit", searchCity);
