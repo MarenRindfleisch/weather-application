@@ -78,7 +78,7 @@ function searchCity(event) {
                 <span class="min-week-forecast-temperature">${Math.round(
                   forecastDay.temp.min
                 )}°C</span>
-                <span class="max-week-forecast-temperature"${Math.round(
+                <span class="max-week-forecast-temperature">${Math.round(
                   forecastDay.temp.max
                 )}°C</span>
           </div>
@@ -121,28 +121,3 @@ function searchCity(event) {
 }
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", searchCity);
-
-// Feature convert temperature
-
-let fahrenheitLink = document.querySelector("#fahrenheit");
-fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
-
-let celsiusLink = document.querySelector("#celsius");
-celsiusLink.addEventListener("click", displayCelsiusTemperature);
-let celsiusTemperature = null;
-
-function displayCelsiusTemperature(event) {
-  event.preventDefault;
-  let temperatureElement = document.querySelector("#current-temperature");
-  temperatureElement.innerHTML = Math.round(celsiusTemperature);
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-}
-function displayFahrenheitTemperature(event) {
-  event.preventDefault;
-  let temperatureElement = document.querySelector("#current-temperature");
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-}
